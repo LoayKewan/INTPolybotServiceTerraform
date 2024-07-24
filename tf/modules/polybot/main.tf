@@ -178,8 +178,9 @@ resource "aws_lb_target_group" "polybot_tg" {
 resource "aws_lb_listener" "polybot_listener_8443" {
   load_balancer_arn = aws_lb.polybot_alb.arn
   port              = 8443
-  protocol          = "HTTP"
-  #certificate_arn   = var.certificate_arn
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"
