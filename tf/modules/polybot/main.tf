@@ -1,3 +1,69 @@
+
+
+# Load Balancer
+resource "aws_lb" "polybot_alb" {
+  name               = "loay-PolybotServiceLB-tf"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.polybot_sg.id]
+  subnets            = var.public_subnet_ids
+
+  tags = {
+    Name      = "loay-PolybotServiceLB-tf"
+    Terraform = "true"
+  }
+}
+
+# Target Group
+resource "aws_lb_target_group" "polybot_tg" {
+  name     = "loay-polybot-target-group-tf"
+  port     = 8443
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+
+  health_check {
+    path                = "/"
+    interval            = 30
+    timeout             = 10
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
+
+  tags = {
+    Name      = "loay-polybot-target-group-tf"
+    Terraform = "true"
+  }
+}
+
+
+resource "aws_lb_listener" "polybot_listener_8443" {
+  load_balancer_arn = aws_lb.polybot_alb.arn
+  port              = 8443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = var.certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.polybot_tg.arn
+  }
+}
+
+resource "aws_lb_listener" "polybot_listener_443" {
+  load_balancer_arn = aws_lb.polybot_alb.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = var.certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.polybot_tg.arn
+  }
+}
+
+
+
 # EC2 Instances
 resource "aws_instance" "polybot_instance1" {
   ami                    = var.instance_ami_polybot
@@ -138,68 +204,6 @@ resource "aws_security_group" "polybot_sg" {
   }
 }
 
-
-# Load Balancer
-resource "aws_lb" "polybot_alb" {
-  name               = "loay-PolybotServiceLB-tf"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.polybot_sg.id]
-  subnets            = var.public_subnet_ids
-
-  tags = {
-    Name      = "loay-PolybotServiceLB-tf"
-    Terraform = "true"
-  }
-}
-
-# Target Group
-resource "aws_lb_target_group" "polybot_tg" {
-  name     = "loay-polybot-target-group-tf"
-  port     = 8443
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
-
-  health_check {
-    path                = "/"
-    interval            = 30
-    timeout             = 10
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-  }
-
-  tags = {
-    Name      = "loay-polybot-target-group-tf"
-    Terraform = "true"
-  }
-}
-
-
-resource "aws_lb_listener" "polybot_listener_8443" {
-  load_balancer_arn = aws_lb.polybot_alb.arn
-  port              = 8443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = var.certificate_arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.polybot_tg.arn
-  }
-}
-
-resource "aws_lb_listener" "polybot_listener_443" {
-  load_balancer_arn = aws_lb.polybot_alb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = var.certificate_arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.polybot_tg.arn
-  }
-}
 
 # Target Group Attachments
 resource "aws_lb_target_group_attachment" "polybot_instance1_attachment" {
