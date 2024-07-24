@@ -24,7 +24,7 @@ variable "key_pair_name_polybot" {
 variable "iam_role_name" {
   description = "IAM Role name for the instance"
   type = string
-  default = "ehabo-polybot-role-tf"
+  default = "loay-polybot-role-tf"
 }
 
 variable "certificate_arn" {

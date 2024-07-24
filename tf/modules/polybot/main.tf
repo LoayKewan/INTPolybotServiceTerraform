@@ -6,7 +6,7 @@ resource "aws_instance" "polybot_instance1" {
   subnet_id              = var.public_subnet_ids[0]
   security_groups        = [aws_security_group.polybot_sg.id]
   associate_public_ip_address = true
-  user_data              = base64encode(file("${path.module}/user_data.sh"))
+  user_data              = base64encode(file("${path.module}/user_data_polybot.sh"))
   iam_instance_profile   = aws_iam_instance_profile.polybot_instance_profile.name
 
   tags = {
@@ -22,7 +22,7 @@ resource "aws_instance" "polybot_instance2" {
   subnet_id              = var.public_subnet_ids[1]
   security_groups        = [aws_security_group.polybot_sg.id]
   associate_public_ip_address = true
-  user_data              = base64encode(file("${path.module}/user_data.sh"))
+  user_data              = base64encode(file("${path.module}/user_data_polybot.sh"))
   iam_instance_profile   = aws_iam_instance_profile.polybot_instance_profile.name
 
   tags = {
@@ -107,7 +107,7 @@ resource "aws_security_group" "polybot_sg" {
     from_port   = 8443
     to_port     = 8443
     protocol    = "tcp"
-    cidr_blocks = ["91.108.4.0/22"]
+    cidr_blocks = ["0.0.0.0/0"]
     description = "Allow secure traffic from specific IP range"
   }
 
@@ -115,7 +115,7 @@ resource "aws_security_group" "polybot_sg" {
     from_port   = 8443
     to_port     = 8443
     protocol    = "tcp"
-    cidr_blocks = ["149.154.160.0/20"]
+    cidr_blocks = ["0.0.0.0/0"]
     description = "Allow secure traffic from specific IP range"
   }
 
@@ -185,8 +185,7 @@ resource "aws_lb_listener" "polybot_listener_8443" {
   load_balancer_arn = aws_lb.polybot_alb.arn
   port              = 8443
   protocol          = "HTTP"
-  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = var.certificate_arn
+  #certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"

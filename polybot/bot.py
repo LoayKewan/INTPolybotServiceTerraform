@@ -23,8 +23,9 @@ class Bot:
         for _ in range(retries):
             try:
                 #self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
-                with open("/usr/src/app/YOURPUBLIC.pem", 'r') as cert:
-                    self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', certificate=cert, timeout=60)
+                # with open("/usr/src/app/YOURPUBLIC.pem", 'r') as cert:
+                #     self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', certificate=cert, timeout=60)
+                self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
                 logger.info(f'Telegram Bot information\n\n{self.telegram_bot_client.get_me()}')
                 break  # Break out of the retry loop if successful
             except telebot.apihelper.ApiTelegramException as e:

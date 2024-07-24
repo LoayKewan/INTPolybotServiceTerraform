@@ -4,7 +4,6 @@ resource "aws_launch_template" "loay_yolo5_lt-tf" {
   name_prefix   = "loay-yolo5-lt-tf"
   image_id      = var.instance_ami_yolo5
   instance_type = var.instance_type_yolo5
-
   key_name = var.key_pair_name_yolo5
 
   iam_instance_profile {
@@ -26,7 +25,8 @@ resource "aws_launch_template" "loay_yolo5_lt-tf" {
       Name = "loay-yolo5-instance-tf"
     }
   }
-   user_data = base64encode(file("${path.module}/user_data.sh"))
+   user_data              = base64encode(file("${path.module}/user_data_yolo5.sh"))
+
 }
 # Security Group for the instances
 resource "aws_security_group" "yolo5_sg" {

@@ -18,7 +18,7 @@ variable "availability_zone" {
 variable "iam_role_name_polybot" {
   description = "The name of the IAM role for the Polybot instance"
   type        = string
-  default     = "ehabo-polybot-role-tf"
+  default     = "loay-polybot-role-tf"
 }
 
 variable "dynamodb_table_name" {
@@ -105,5 +105,4 @@ variable "scale_in_cooldown" {
 variable "telegram_token" {
   description = "Telegram Token"
   type = string
-  default = ""
 }

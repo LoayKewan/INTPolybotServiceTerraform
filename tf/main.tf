@@ -92,9 +92,8 @@ resource "aws_s3_bucket" "polybot_bucket" {
   }
 }
 
-
 resource "aws_secretsmanager_secret" "telegram_token" {
-  name = "loay_telegram_token_tf"  # Replace with your desired secret name
+  name = "loay2_telegram_token_tf"  # Replace with your desired secret name
   description = "Telegram bot token"
 
   # Optionally specify tags for your secret

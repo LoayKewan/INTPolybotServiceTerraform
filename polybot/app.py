@@ -9,8 +9,8 @@ from botocore.exceptions import ClientError
 from loguru import logger
 from decimal import Decimal
 def get_secret():
-    secret_name = "loay_telegram_token_tf"
-    region_name = "eu-west-3"
+    secret_name = "loaytokensecret-for-amz-prolect"
+    region_name = "eu-west-1"
 
     # Create a Secrets Manager client
     session = boto3.session.Session()
