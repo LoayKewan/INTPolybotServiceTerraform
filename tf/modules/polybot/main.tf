@@ -103,14 +103,14 @@ resource "aws_security_group" "polybot_sg" {
     description = "Allow application-specific traffic"
   }
 
-
   ingress {
-   from_port   = 8443
-   to_port     = 8443
-   protocol    = "tcp"
-   security_groups = [aws_security_group.polybot_sg.id] # this may vary; adjust as necessary.
-   description = "Allow traffic from load balancer"
-}
+    from_port   = 8443
+    to_port     = 8443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow secure traffic from specific IP range"
+  }
+
 
 
   ingress {
