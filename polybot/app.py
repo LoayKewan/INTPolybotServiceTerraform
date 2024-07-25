@@ -62,7 +62,7 @@ def results():
     logger.info(f"your prediction id: {prediction_id}")
 
     dynamodb = boto3.resource('dynamodb', region_name='eu-west-3')
-    table = dynamodb.Table('prediction_summary')
+    table = dynamodb.Table('loay-PolybotService-DynamoDB-tf')
 
     try:
         response = table.get_item(Key={'prediction_id': prediction_id})
@@ -95,7 +95,6 @@ def results():
                     
                 bot_send_text = Bot(TELEGRAM_TOKEN, TELEGRAM_APP_URL)
                 bot_send_text.send_text(my_chat_id, message)
-
 
             return results
         else:
