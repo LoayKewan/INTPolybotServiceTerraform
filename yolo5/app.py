@@ -125,7 +125,7 @@ def consume():
             dynamodb = boto3.client('dynamodb', region_name='eu-west-3')
 
             # Define the table name
-            table_name = 'prediction_summary'
+            table_name = 'loay-PolybotService-DynamoDB-tf'
 
             # Define the prediction_summary data
             prediction_id = prediction_summary['prediction_id']
@@ -171,7 +171,7 @@ def consume():
 
 
             # Define the base URL of the Polybot server
-            polybot_base_url = "http://loaybot4.int-devops.click"
+            polybot_base_url = "https://loaybot6.int-devops.click"
 
 
             # Combine the base URL and the endpoint to form the complete URL
