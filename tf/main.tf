@@ -84,10 +84,10 @@ resource "aws_subnet" "public2" {
 
 # S3 Bucket
 resource "aws_s3_bucket" "polybot_bucket" {
-  bucket = var.region == "eu-west-3" ? "loayk-bucket-tf" : "loayk-bucket-new-tf"
+  bucket = var.region == "eu-west-3" ? "loayk-bucket-tf1" : "loayk-bucket-new-tf1"
 
   tags = {
-    Name      = var.region == "eu-west-3" ? "loayk-bucket-tf" : "loayk-bucket-new-tf"
+    Name      = var.region == "eu-west-3" ? "loayk-bucket-tf1" : "loayk-bucket-new-tf1"
     Terraform = "true"
   }
 }

@@ -20,7 +20,7 @@ jobs:
       region-code: eu-west-3
     secrets:
       TELEGRAM_TOKEN: ${{ secrets.EU_WEST_3_TELEGRAM_TOKEN }}
-      certificate : ${{ secrets.EU_WEST_3_CERTIFICATE }}
+      certificate : ${{ secrets.EU_WEST_3_CERTIFICAT }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
