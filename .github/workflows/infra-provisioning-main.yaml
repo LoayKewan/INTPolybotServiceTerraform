@@ -3,11 +3,11 @@ name: Polybot Infrastructure Terraform Main
 on:
   workflow_dispatch:
     inputs:
-      us-east-1:
+      us-east-2:
         description: 'Ohio (us-east-2)'
         required: false
         type: boolean
-      eu-central-1:
+      eu-west-3:
         description: 'paris (eu-west-3)'
         required: false
         type: boolean
