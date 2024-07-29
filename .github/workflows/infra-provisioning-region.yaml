@@ -19,7 +19,6 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     defaults:
       run:
         working-directory: ./tf  # The directory containing your Terraform configuration files
@@ -34,7 +33,6 @@ jobs:
 
       - name: Terraform init
         run: |
-          
           echo "AWS_ACCESS_KEY_ID is set"
           echo ${{ secrets.AWS_ACCESS_KEY_ID }}
           echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
