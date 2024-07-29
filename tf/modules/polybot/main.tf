@@ -62,8 +62,6 @@ resource "aws_lb_listener" "polybot_listener_443" {
   }
 }
 
-
-
 # EC2 Instances
 resource "aws_instance" "polybot_instance1" {
   ami                    = var.instance_ami_polybot
@@ -72,7 +70,7 @@ resource "aws_instance" "polybot_instance1" {
   subnet_id              = var.public_subnet_ids[0]
   security_groups        = [aws_security_group.polybot_sg.id]
   associate_public_ip_address = true
-  user_data              = base64encode(file("${path.module}/user_data_polybot.sh"))
+  user_data              = base64encode(file("${path.module}/${var.user_data}"))
   iam_instance_profile   = aws_iam_instance_profile.polybot_instance_profile.name
 
   tags = {
@@ -88,7 +86,7 @@ resource "aws_instance" "polybot_instance2" {
   subnet_id              = var.public_subnet_ids[1]
   security_groups        = [aws_security_group.polybot_sg.id]
   associate_public_ip_address = true
-  user_data              = base64encode(file("${path.module}/user_data_polybot.sh"))
+  user_data              = base64encode(file("${path.module}/${var.user_data}"))
   iam_instance_profile   = aws_iam_instance_profile.polybot_instance_profile.name
 
   tags = {

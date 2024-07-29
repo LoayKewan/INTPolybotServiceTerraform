@@ -84,10 +84,10 @@ resource "aws_subnet" "public2" {
 
 # S3 Bucket
 resource "aws_s3_bucket" "polybot_bucket" {
-  bucket = "loayk-bucket-tf"
+  bucket = var.region == "eu-west-3" ? "loayk-bucket-tf" : "loayk-bucket-new-tf"
 
   tags = {
-    Name      = "loayk-bucket-tf"
+    Name      = var.region == "eu-west-3" ? "loayk-bucket-tf" : "loayk-bucket-new-tf"
     Terraform = "true"
   }
 }
@@ -119,6 +119,7 @@ module "polybot" {
   instance_type_polybot = var.instance_type_polybot
   key_pair_name_polybot = var.key_pair_name_polybot
   iam_role_name         = var.iam_role_name_polybot
+  user_data             = var.user_data_for_region
   certificate_arn       = var.certificate_arn
 }
 
@@ -129,6 +130,8 @@ module "yolo5" {
   instance_ami_yolo5     = var.instance_ami_yolo5
   instance_type_yolo5    = var.instance_type_yolo5
   key_pair_name_yolo5    = var.key_pair_name_yolo5
+  user_data1            = var.user_data_for_region1
+  iam_role_name         = var.iam_role_name_yolo5
   vpc_id                 = aws_vpc.main.id
   public_subnet_ids      = [aws_subnet.public1.id, aws_subnet.public2.id]
   asg_min_size           = 1

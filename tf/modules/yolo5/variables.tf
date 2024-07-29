@@ -11,8 +11,14 @@ variable "instance_type_yolo5" {
 variable "iam_role_name" {
   description = "Iam Role name for the instance"
   type = string
-  default = "loay-role-yolo5-tf"
 }
+
+variable "user_data1" {
+  description = "Iam Role name for the instance"
+  type = string
+}
+
+
 variable "key_pair_name_yolo5" {
   description = "Key pair name for SSH access."
   type        = string
@@ -84,4 +90,11 @@ variable "scale_in_cooldown" {
   description = "Cooldown period in seconds for scale-in actions"
   type        = number
   default     = 300  # Example: 5 minutes (adjust as needed)
+}
+
+
+variable "region" {
+  description = "region for the yolo5"
+  type = string
+  default = ""
 }

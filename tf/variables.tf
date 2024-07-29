@@ -1,7 +1,6 @@
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "eu-west-3"
 }
 
 variable "vpc_cidr" {
@@ -19,6 +18,28 @@ variable "iam_role_name_polybot" {
   description = "The name of the IAM role for the Polybot instance"
   type        = string
   default     = "loay-polybot-role-tf"
+}
+
+
+variable "user_data_for_region1" {
+  description = "user_data_for_region"
+  type        = string
+}
+
+
+
+
+variable "user_data_for_region" {
+  description = "user_data_for_region"
+  type        = string
+}
+
+
+
+variable "iam_role_name_yolo5" {
+  description = "The name of the IAM role for the Polybot instance"
+  type        = string
+  default     = "loay-yolo5-role-tf"
 }
 
 variable "dynamodb_table_name" {

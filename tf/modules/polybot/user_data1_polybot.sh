@@ -28,7 +28,7 @@ sudo systemctl enable docker
 sudo usermod -aG docker $USER
 
 sudo docker login -u loaykewan -p loayk57900
-sudo docker pull loaykewan/polybot_images_region.eu-west-3:6
-sudo docker run --name my_polybot_test -p 8443:8443 loaykewan/polybot_images_region.eu-west-3:6
+sudo docker pull loaykewan/polybot_images_region.eu-west-3-new
+sudo docker run --name my_polybot_test -p 8443:8443 loaykewan/polybot_images_region.eu-west-3-new
 
 

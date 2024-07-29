@@ -2,7 +2,8 @@
 
 resource "aws_launch_template" "loay_yolo5_lt-tf" {
   name_prefix   = "loay-yolo5-lt-tf"
-  image_id      = var.instance_ami_yolo5
+  image_id   = var.instance_ami_yolo5
+
   instance_type = var.instance_type_yolo5
   key_name = var.key_pair_name_yolo5
 
@@ -25,7 +26,7 @@ resource "aws_launch_template" "loay_yolo5_lt-tf" {
       Name = "loay-yolo5-instance-tf"
     }
   }
-   user_data              = base64encode(file("${path.module}/user_data_yolo5.sh"))
+   user_data              = base64encode(file("${path.module}/${var.user_data1}"))
 
 }
 # Security Group for the instances
@@ -188,6 +189,6 @@ resource "aws_iam_role_policy_attachment" "secretsmanager_policy" {
 }
 
 resource "aws_iam_instance_profile" "yolo5_instance_profile" {
-  name = "loay-yolo5-instance-profile"
+  name      = var.iam_role_name
   role = aws_iam_role.yolo5_role.name
 }
