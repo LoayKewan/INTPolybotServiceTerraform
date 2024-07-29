@@ -36,7 +36,8 @@ jobs:
           echo "AWS_ACCESS_KEY_ID is set"
           echo ${{ secrets.AWS_ACCESS_KEY_ID }}
           echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          echo "Current region code: ${{ inputs.region-code }}"       
+          echo "Current region code: ${{ inputs.region-code }}"    
+          
           terraform init
 
       - name: Terraform workspace select
@@ -50,6 +51,7 @@ jobs:
           export TF_VAR_telegram_token=${{ secrets.TELEGRAM_TOKEN }}
           export TF_VAR_certificate_arn=${{ secrets.certificate }}
           terraform plan -var-file=region.${{ inputs.region-code }}.tfvars
+          
 
       - name: Terraform apply
         run: |
