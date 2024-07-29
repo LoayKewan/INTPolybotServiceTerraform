@@ -30,7 +30,7 @@ jobs:
     with:
       region-code: us-east-2
     secrets:
-      TELEGRAM_TOKEN: ${{ secrets.US_EAST_2_CERTIFICATE }}
+      TELEGRAM_TOKEN: ${{ secrets.US_EAST_2_TELEGRAM_TOKEN }}
       certificate : ${{ secrets.US_EAST_2_CERTIFICATE }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
