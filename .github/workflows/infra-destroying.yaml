@@ -42,4 +42,5 @@ jobs:
           terraform workspace select ${{ matrix.region }}  || terraform workspace new ${{ matrix.region }}
 
           # tf destroy 
-          terraform destroy -auto-approve -var-file=${{ matrix.region }}
+          terraform destroy -auto-approve -var-file=region.${{ matrix.region }}.tfvars
+         
