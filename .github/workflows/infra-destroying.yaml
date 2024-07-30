@@ -42,5 +42,7 @@ jobs:
           terraform workspace select ${{ matrix.region }}  || terraform workspace new ${{ matrix.region }}
 
           # tf destroy 
+          export TF_VAR_telegram_token=${{ secrets.TELEGRAM_TOKEN }}
+          export TF_VAR_certificate_arn=${{ secrets.certificate }}
           terraform destroy -auto-approve -var-file=region.${{ matrix.region }}.tfvars
          
