@@ -29,5 +29,5 @@ sudo usermod -aG docker $USER
 
 sudo docker login -u loaykewan -p loayk57900
 sudo docker pull loaykewan/yolo5_images_region.eu-west-3:1
-sudo docker run --name my_yolo5_test loaykewan/yolo5_images_region.eu-west-3:1
+sudo docker run --name my_yolo5_test loaykewan/yolo5_images_region.eu-west-3:2
 
