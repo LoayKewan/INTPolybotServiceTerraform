@@ -18,27 +18,26 @@ class Bot:
     def __init__(self, token, telegram_chat_url):
         self.telegram_bot_client = telebot.TeleBot(token)
         self.telegram_bot_client.remove_webhook()
-        time.sleep(0.5)
-        retries = 4
-        for _ in range(retries):
-            try:
-                #self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
-                # with open("/usr/src/app/YOURPUBLIC.pem", 'r') as cert:
-                #     self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', certificate=cert, timeout=60)
-                logger.info(f'Setting webhook to: {f"{telegram_chat_url}/{token}/"}')
-                self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', timeout=60)
-                logger.info(f'Telegram Bot information\n\n{self.telegram_bot_client.get_me()}')
-                break  # Break out of the retry loop if successful
-            except telebot.apihelper.ApiTelegramException as e:
-                if e.error_code == 429:  # Too Many Requests error
-                    retry_after = int(e.result_json.get('parameters', {}).get('retry_after', 1))
-                    logger.warning(f"Too Many Requests. Retrying after {retry_after} seconds...")
-                    time.sleep(retry_after)
-                    continue
-                else:
-                    raise e  # Re-raise the exception if it's not a 429 error
-        else:
-            logger.error("Failed to set webhook after retries")
+        time.sleep(0.5)  # Optional sleep, but can be reduced or removed
+       
+        try:
+            # Open certificate file only when needed and set webhook
+            with open("/usr/src/app/tls.crt", 'r') as cert:
+                self.telegram_bot_client.set_webhook(url=f'{telegram_chat_url}/{token}/', certificate=cert ,timeout=60)
+
+            # Log successful webhook setup
+            logger.info(f'Setting webhook to: {f"{telegram_chat_url}/{token}/"}')
+            logger.info(f'Telegram Bot information: {self.telegram_bot_client.get_me()}')
+            logger.info('Webhook set successfully.')
+        except telebot.apihelper.ApiTelegramException as e:
+            if e.error_code == 429:  # Too Many Requests error
+                retry_after = int(e.result_json.get('parameters', {}).get('retry_after', 1))
+                logger.warning(f"Too Many Requests. Retrying after {retry_after} seconds...")
+                time.sleep(retry_after)
+            else:
+                logger.error(f"Failed to set webhook: {str(e)}")
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {str(e)}")
 
     def send_text(self, chat_id, text):
         self.telegram_bot_client.send_message(chat_id, text)
